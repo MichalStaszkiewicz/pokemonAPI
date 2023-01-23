@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:pokeapi/presentation_layer/bloc/pokemon_api_bloc.dart';
@@ -17,7 +16,7 @@ class PokemonDetailsScreen extends StatefulWidget {
 }
 
 class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
-  List<Widget> prs(List<String> list) {
+  List<Widget> pokemonDetailsToTextWidget(List<String> list) {
     List<Widget> texts = [];
 
     for (String i in list) {
@@ -39,18 +38,18 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       "Pokemon Forms: ",
                       style: TextStyle(fontSize: 25),
                     ),
-                    ...prs(state.pokemon_details.forms),
-                    Text("Pokemon Moves: ", style: TextStyle(fontSize: 25)),
-                    ...prs(state.pokemon_details.moves),
-                    Text("Pokemon Ability: ", style: TextStyle(fontSize: 25)),
-                    ...prs(state.pokemon_details.ability),
+                    ...pokemonDetailsToTextWidget(state.pokemon_details.forms),
+                    const Text("Pokemon Moves: ", style: TextStyle(fontSize: 25)),
+                    ...pokemonDetailsToTextWidget(state.pokemon_details.moves),
+                    const Text("Pokemon Ability: ", style: TextStyle(fontSize: 25)),
+                    ...pokemonDetailsToTextWidget(state.pokemon_details.ability),
                     Text(
                         "Pokemon Base Experience: ${state.pokemon_details.baseExperience}",
-                        style: TextStyle(fontSize: 25)),
+                        style: const TextStyle(fontSize: 25)),
                   ],
                 ),
               );
@@ -60,7 +59,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                 child: Text("Loading Data"),
               );
             } else {
-              return Center(
+              return const Center(
                 child: Text("Something Went wrong"),
               );
             }

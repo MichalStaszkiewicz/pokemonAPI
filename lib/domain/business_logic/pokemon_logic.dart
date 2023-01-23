@@ -1,4 +1,4 @@
-import '../../data/network/dto/pokemon_details_data_dto.dart';
+
 import '../../data/network/dto/pokemon_basic_informations_dto.dart';
 import '../../data/repository_implementation/pokemon_repository.dart';
 
