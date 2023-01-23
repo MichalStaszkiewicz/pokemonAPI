@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokeapi/bloc/pokemon_api_bloc.dart';
 
-import 'models/pokemon.dart';
+import 'package:pokeapi/presentation_layer/bloc/pokemon_api_bloc.dart';
+
+import '../../domain/model/pokemon_basic_informations.dart';
 
 class PokemonDetailsScreen extends StatefulWidget {
   PokemonDetailsScreen({super.key, required this.pokemon});
-  Pokemon pokemon;
+  PokemonBasicInformations pokemon;
 
   @override
   State<PokemonDetailsScreen> createState() => _PokemonDetailsScreenState();
@@ -34,7 +35,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
         ),
         body: BlocBuilder<PokemonApiBloc, PokemonApiState>(
           builder: (context, state) {
-            if (state is PokemonApiDetails) {
+            if (state is PokemonDetailsLoaded) {
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -42,13 +43,13 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                       "Pokemon Forms: ",
                       style: TextStyle(fontSize: 25),
                     ),
-                    ...prs(state.details.forms),
+                    ...prs(state.pokemon_details.forms),
                     Text("Pokemon Moves: ", style: TextStyle(fontSize: 25)),
-                    ...prs(state.details.moves),
+                    ...prs(state.pokemon_details.moves),
                     Text("Pokemon Ability: ", style: TextStyle(fontSize: 25)),
-                    ...prs(state.details.ability),
+                    ...prs(state.pokemon_details.ability),
                     Text(
-                        "Pokemon Base Experience: ${state.details.baseExperience}",
+                        "Pokemon Base Experience: ${state.pokemon_details.baseExperience}",
                         style: TextStyle(fontSize: 25)),
                   ],
                 ),

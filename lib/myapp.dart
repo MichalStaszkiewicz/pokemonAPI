@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokeapi/bloc/pokemon_api_bloc.dart';
-import 'package:pokeapi/homepage.dart';
+import 'package:pokeapi/presentation_layer/bloc/pokemon_api_bloc.dart';
+import 'package:pokeapi/presentation_layer/pages/homepage.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home:  BlocProvider(
-        create: (context) => PokemonApiBloc()..add(PokemonFetchData()),
+        create: (context) => PokemonApiBloc()..add(LoadPokemons()),
         child: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );

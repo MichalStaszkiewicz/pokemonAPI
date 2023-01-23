@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokeapi/bloc/pokemon_api_bloc.dart';
-import 'package:pokeapi/pokemon_details_screen.dart';
+import 'package:pokeapi/presentation_layer/bloc/pokemon_api_bloc.dart';
+
+import 'package:pokeapi/presentation_layer/pages/pokemon_details_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -20,15 +21,15 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: BlocBuilder<PokemonApiBloc, PokemonApiState>(
           builder: (context, state) {
-            if (state is PokemonApiLoaded) {
+            if (state is PokemonListLoaded) {
               return ListView.builder(
                   itemBuilder: (context, index) => GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: ((context) => BlocProvider(
                                   create: (context) => PokemonApiBloc()
-                                    ..add(PokemonDetails(
-                                        pokemon: state.pokemons[index])),
+                                    ..add(LoadPokemonDetails(
+                                        url: state.pokemons[index].detailsURL)),
                                   child: PokemonDetailsScreen(
                                     pokemon: state.pokemons[index],
                                   ),
