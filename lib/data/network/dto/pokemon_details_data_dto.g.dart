@@ -9,11 +9,10 @@ part of 'pokemon_details_data_dto.dart';
 PokemonDetailsDataDto _$PokemonDetailsDataDtoFromJson(
         Map<String, dynamic> json) =>
     PokemonDetailsDataDto(
-      abilities:
-          (json['abilities'] as List<dynamic>).map((e) => e as String).toList(),
+      abilities: _abilitiesFromJson(json['abilities'] as List),
       baseExperience: json['base_experience'] as int,
-      forms: (json['forms'] as List<dynamic>).map((e) => e as String).toList(),
-      moves: (json['moves'] as List<dynamic>).map((e) => e as String).toList(),
+      forms: _formsFromJson(json['forms'] as List),
+      moves: _movesFromJson(json['moves'] as List),
     );
 
 Map<String, dynamic> _$PokemonDetailsDataDtoToJson(

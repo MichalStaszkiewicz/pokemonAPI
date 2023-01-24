@@ -10,13 +10,13 @@ class PokemonDetailsDataDto {
     required this.forms,
     required this.moves,
   });
-  @JsonKey(name: 'abilities')
+  @JsonKey(name: 'abilities', fromJson: _abilitiesFromJson)
   final List<String> abilities;
   @JsonKey(name: 'base_experience')
   final int baseExperience;
-  @JsonKey(name: 'forms')
+  @JsonKey(name: 'forms', fromJson: _formsFromJson)
   final List<String> forms;
-  @JsonKey(name: 'moves')
+  @JsonKey(name: 'moves', fromJson: _movesFromJson)
   final List<String> moves;
   PokemonDetailsData toDomain() {
     return PokemonDetailsData(
@@ -28,4 +28,15 @@ class PokemonDetailsDataDto {
   }
 factory PokemonDetailsDataDto.fromJson(Map<String, dynamic> json) =>_$PokemonDetailsDataDtoFromJson(json);
   Map<String, dynamic> toJson() => _$PokemonDetailsDataDtoToJson(this);
+}
+
+List<String> _abilitiesFromJson(List<dynamic> abilities) {
+return abilities.map((e) => e['ability']['name'].toString()).toList();
+}
+
+List<String> _formsFromJson(List<dynamic> forms) {
+return forms.map((e) => e['name'].toString()).toList();
+}
+List<String> _movesFromJson(List<dynamic> moves) {
+return moves.map((e) => e['move']['name'].toString()).toList();
 }

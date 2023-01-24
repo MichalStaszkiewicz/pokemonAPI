@@ -16,7 +16,7 @@ class PokemonApiRepository extends PokemonRepository {
         var result = response.data;
         for (var pokemon in result["results"]) {
           pokemons.add(
-              PokemonBasicInformationsDto(name: pokemon['name'], detailsURL: pokemon['url']));
+              PokemonBasicInformationsDto.fromJson(pokemon));
         }
       } else {
         throw Exception("Error: ${response.statusCode}");
@@ -35,23 +35,8 @@ class PokemonApiRepository extends PokemonRepository {
       Dio dio = Dio();
       var response = await dio.get(url);
       var result = response.data;
-      List<String> abilities = [];
-      List<String> forms = [];
-      List<String> moves = [];
-      for (var ability in result['abilities']) {
-        abilities.add(ability['ability']['name']);
-      }
-      for (var form in result['forms']) {
-        forms.add(form['name']);
-      }
-      for (var move in result['moves']) {
-        moves.add(move['move']['name']);
-      }
-      return PokemonDetailsDataDto(
-          abilities: abilities,
-          baseExperience: result['base_experience'],
-          forms: forms,
-          moves: moves);
+ 
+      return PokemonDetailsDataDto.fromJson(result);
     } catch (error) {
       if (error is DioError) {
         print("Error: ${error.response}");
